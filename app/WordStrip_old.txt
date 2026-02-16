@@ -1,0 +1,157 @@
+package com.example.lecturemotparmotapp
+
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.animation.with
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.example.a18.FullScreenReadingScreen
+
+
+//@Composable
+//fun WordStrip(prev: String, current: String, next: String, isFullScreen: Boolean) {
+//    Row(
+//        verticalAlignment = Alignment.CenterVertically,
+//        modifier = Modifier.fillMaxWidth()
+//    ) {
+//        if (!isFullScreen) {
+//            Text(prev, textAlign = TextAlign.Center, fontSize = 18.sp, color = Color.Gray)
+//            Spacer(Modifier.height(8.dp))
+//        }
+//        Text(
+//            current,
+//            textAlign = TextAlign.Center,
+//            fontSize = if (isFullScreen) 56.sp else 36.sp,
+//            fontWeight = FontWeight.Bold
+//        )
+//        if (!isFullScreen) {
+//            Spacer(Modifier.height(8.dp))
+//            Text(next, textAlign = TextAlign.Center, fontSize = 18.sp, color = Color.Gray)
+//        }
+//    }
+//}
+
+
+
+
+@OptIn(ExperimentalAnimationApi::class)
+@Composable
+fun WordStrip(prev: String,
+              current: String,
+              next: String,
+              isFullScreen: Boolean,
+              onExit: () -> Unit
+) {
+    if (isFullScreen) {
+        AnimatedContent(
+            targetState = Triple(prev, current, next), // on surveille les 3 mots ensemble
+            transitionSpec = {
+                // Entrée par la droite, sortie par la gauche
+                slideInHorizontally { fullWidth -> fullWidth } with
+                        slideOutHorizontally { fullWidth -> -fullWidth }
+            }
+        ) { (prevWord, currentWord, nextWord) ->
+            Row(
+                modifier = Modifier
+                    .animateContentSize()
+                    .fillMaxSize()
+                    .background(Color.Black)
+                    .clickable { onExit() },
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                // Zone gauche : occupe la moitié de l'espace restant
+                Box(modifier = Modifier.weight(1f)) {
+                    Text(
+                        text = prev,
+                        color = Color.LightGray,
+                        fontSize = 28.sp,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                    )
+                }
+
+                Spacer(modifier = Modifier.width(12.dp))
+
+                // Mot central : reste parfaitement centré
+                AnimatedWord(current)
+
+
+                Spacer(modifier = Modifier.width(12.dp))
+
+                // Zone droite : occupe l’autre moitié de l'espace restant
+                Box(modifier = Modifier.weight(1f)) {
+                    Text(
+                        text = next,
+                        color = Color.LightGray,
+                        fontSize = 28.sp,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                    )
+                }
+            }
+        }
+    }
+    else
+        AnimatedContent(
+            targetState = Triple(prev, current, next), // on surveille les 3 mots ensemble
+            transitionSpec = {
+                // Entrée par la droite, sortie par la gauche
+                slideInHorizontally { fullWidth -> fullWidth } with
+                        slideOutHorizontally { fullWidth -> -fullWidth }
+            }
+        ) { (prevWord, currentWord, nextWord) ->
+            Row(
+                modifier = Modifier
+                    .animateContentSize()
+                    .fillMaxSize()
+                    .padding(horizontal = if (isFullScreen) 0.dp else 16.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                // Zone gauche : occupe la moitié de l'espace restant
+                Box(modifier = Modifier.weight(1f)) {
+                    Text(
+                        text = prev,
+                        color = Color.LightGray,
+                        fontSize = 28.sp,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                    )
+                }
+
+                Spacer(modifier = Modifier.width(12.dp))
+
+                // Mot central : reste parfaitement centré
+                AnimatedWord(current)
+
+
+                Spacer(modifier = Modifier.width(12.dp))
+
+                // Zone droite : occupe l’autre moitié de l'espace restant
+                Box(modifier = Modifier.weight(1f)) {
+                    Text(
+                        text = next,
+                        color = Color.LightGray,
+                        fontSize = 28.sp,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                    )
+                }
+            }
+        }
+    }
+
+
+

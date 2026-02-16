@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+  <group
+      android:translateX="6"
+      android:translateY="6"
+      android:scaleX="0.89"
+      android:scaleY="0.89">
+
+    <!-- Livre (silhouettes pleines, arrière-plan) -->
+    <path android:fillColor="#000000" android:pathData="M18,32 L50,26 L50,70 L18,74 Z"/>
+    <path android:fillColor="#000000" android:pathData="M90,32 L58,26 L58,70 L90,74 Z"/>
+    <path android:fillColor="#000000" android:pathData="M50,24 L58,24 L58,72 L50,72 Z"/>
+    <path android:fillColor="#000000" android:pathData="M20,34 L50,30 L50,68 L20,72 Z"/>
+    <path android:fillColor="#000000" android:pathData="M88,34 L58,30 L58,68 L88,72 Z"/>
+    <path android:fillColor="#000000" android:pathData="M54,24 L54,38 L52,36 L50,38 L50,24 Z"/>
+
+    <!-- Mot "Glitch" (noir, style Arial-like), au-dessus du livre -->
+    <group
+        android:translateX="9"
+        android:translateY="34"
+        android:scaleX="0.74"
+        android:scaleY="0.74">
+
+      <!-- G -->
+      <path android:fillColor="#000000" android:pathData="M2,20 H6 V36 H2 Z"/>
+      <path android:fillColor="#000000" android:pathData="M2,20 H22 V24 H2 Z"/>
+      <path android:fillColor="#000000" android:pathData="M2,32 H22 V36 H2 Z"/>
+      <path android:fillColor="#000000" android:pathData="M14,28 H26 V32 H14 Z"/>
+
+      <!-- l -->
+      <path android:fillColor="#000000" android:pathData="M30,20 H34 V36 H30 Z"/>
+
+      <!-- i -->
+      <path android:fillColor="#000000" android:pathData="M38,26 H42 V36 H38 Z"/>
+      <path android:fillColor="#000000" android:pathData="M38,20 H42 V22 H38 Z"/>
+
+      <!-- t -->
+      <path android:fillColor="#000000" android:pathData="M46,20 H60 V24 H46 Z"/>
+      <path android:fillColor="#000000" android:pathData="M52,20 H56 V36 H52 Z"/>
+
+      <!-- c -->
+      <path android:fillColor="#000000" android:pathData="M64,24 H68 V36 H64 Z"/>
+      <path android:fillColor="#000000" android:pathData="M68,24 H80 V28 H68 Z"/>
+      <path android:fillColor="#000000" android:pathData="M68,32 H80 V36 H68 Z"/>
+
+      <!-- h -->
+      <path android:fillColor="#000000" android:pathData="M84,20 H88 V36 H84 Z"/>
+      <path android:fillColor="#000000" android:pathData="M88,28 H100 V32 H88 Z"/>
+      <path android:fillColor="#000000" android:pathData="M100,28 H104 V36 H100 Z"/>
+    </group>
+  </group>
+</vector>

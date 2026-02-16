@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+  <!-- Groupe de marge/sécurité -->
+  <group
+      android:translateX="6"
+      android:translateY="6"
+      android:scaleX="0.89"
+      android:scaleY="0.89">
+
+    <!-- Ombre douce sous le livre -->
+    <path
+        android:fillColor="#20000000"
+        android:pathData="M18,72 C18,72 54,78 90,72 C90,72 90,80 54,84 C18,88 18,80 18,72 Z" />
+
+    <!-- Livre ancien brun (arrière-plan) -->
+    <path android:fillColor="#6D4C41" android:pathData="M18,32 L50,26 L50,70 L18,74 Z"/>
+    <path android:fillColor="#6D4C41" android:pathData="M90,32 L58,26 L58,70 L90,74 Z"/>
+    <path android:fillColor="#5D4037" android:pathData="M50,24 L58,24 L58,72 L50,72 Z"/>
+    <path android:fillColor="#F5E6CC" android:pathData="M20,34 L50,30 L50,68 L20,72 Z"/>
+    <path android:fillColor="#F5E6CC" android:pathData="M88,34 L58,30 L58,68 L88,72 Z"/>
+
+    <!-- Lignes fines des pages -->
+    <path android:strokeColor="#E7D9BD" android:strokeWidth="1.2" android:fillColor="@android:color/transparent" android:pathData="M22,44 L48,41"/>
+    <path android:strokeColor="#E7D9BD" android:strokeWidth="1.2" android:fillColor="@android:color/transparent" android:pathData="M22,52 L48,49"/>
+    <path android:strokeColor="#E7D9BD" android:strokeWidth="1.2" android:fillColor="@android:color/transparent" android:pathData="M22,60 L48,57"/>
+    <path android:strokeColor="#E7D9BD" android:strokeWidth="1.2" android:fillColor="@android:color/transparent" android:pathData="M60,41 L86,44"/>
+    <path android:strokeColor="#E7D9BD" android:strokeWidth="1.2" android:fillColor="@android:color/transparent" android:pathData="M60,49 L86,52"/>
+    <path android:strokeColor="#E7D9BD" android:strokeWidth="1.2" android:fillColor="@android:color/transparent" android:pathData="M60,57 L86,60"/>
+
+    <!-- Marque-page -->
+    <path android:fillColor="#C62828" android:pathData="M54,24 L54,38 L52,36 L50,38 L50,24 Z"/>
+
+    <!-- Mot "Glitch" (mauve, style Arial-like), entièrement contenu et au-dessus du livre -->
+    <group
+        android:translateX="9"
+        android:translateY="34"
+        android:scaleX="0.74"
+        android:scaleY="0.74">
+
+      <!-- G (majuscule) -->
+      <path android:fillColor="#8E44AD" android:pathData="M2,20 H6 V36 H2 Z"/>
+      <path android:fillColor="#8E44AD" android:pathData="M2,20 H22 V24 H2 Z"/>
+      <path android:fillColor="#8E44AD" android:pathData="M2,32 H22 V36 H2 Z"/>
+      <path android:fillColor="#8E44AD" android:pathData="M14,28 H26 V32 H14 Z"/>
+
+      <!-- l (minuscule L) -->
+      <path android:fillColor="#8E44AD" android:pathData="M30,20 H34 V36 H30 Z"/>
+
+      <!-- i (minuscule) + point -->
+      <path android:fillColor="#8E44AD" android:pathData="M38,26 H42 V36 H38 Z"/>
+      <path android:fillColor="#8E44AD" android:pathData="M38,20 H42 V22 H38 Z"/>
+
+      <!-- t (minuscule) -->
+      <path android:fillColor="#8E44AD" android:pathData="M46,20 H60 V24 H46 Z"/>
+      <path android:fillColor="#8E44AD" android:pathData="M52,20 H56 V36 H52 Z"/>
+
+      <!-- c (minuscule) -->
+      <path android:fillColor="#8E44AD" android:pathData="M64,24 H68 V36 H64 Z"/>
+      <path android:fillColor="#8E44AD" android:pathData="M68,24 H80 V28 H68 Z"/>
+      <path android:fillColor="#8E44AD" android:pathData="M68,32 H80 V36 H68 Z"/>
+
+      <!-- h (minuscule — demandé) -->
+      <path android:fillColor="#8E44AD" android:pathData="M84,20 H88 V36 H84 Z"/>
+      <path android:fillColor="#8E44AD" android:pathData="M88,28 H100 V32 H88 Z"/>
+      <path android:fillColor="#8E44AD" android:pathData="M100,28 H104 V36 H100 Z"/>
+    </group>
+  </group>
+</vector>
