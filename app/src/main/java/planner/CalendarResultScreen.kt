@@ -41,6 +41,10 @@ import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalDensity
 import com.tom_roush.harmony.awt.AWTColor.white
 import social.CommentsService
+import Exports.IcsCalendarExporter
+import android.content.Intent
+import androidx.core.content.FileProvider
+import Exports.CalendarExportUseCase
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -65,6 +69,14 @@ fun CalendarResultScreen(navController: NavController, vm: PlannerViewModel) {
                 title = { Text("Calendrier organisé") },
                 actions = {
                     AccueilAction { navController.goHome() }
+                    ExportCalendarAction {
+                        CalendarExportUseCase.exportAndOpen(
+                            context = context,
+                            items = items,
+                            calendarName = "Calendrier organisé",
+                            useChooser = true
+                        )
+                    }
                 }
             )
         }

@@ -1,4 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+================================================================================
+ANDROID MANIFEST — RÔLE DANS L’APPLICATION
+================================================================================
+
+Le fichier AndroidManifest.xml est le contrat officiel entre l’application et
+le système Android. Il est lu AVANT l’exécution du code Kotlin et sert à
+déclarer au système :
+
+1) Les composants de l’application (activités, services, providers, receivers)
+2) Les permissions autorisées
+3) Le point de lancement de l’application
+4) Les interactions possibles avec les autres applications
+5) Les capacités système utilisées
+
+Sans ce fichier, Android ne peut pas exécuter l’application.
+
+
+Pourquoi un FileProvider est déclaré ci-dessous ?
+
+L’application permet d’exporter un planning au format calendrier (.ics) afin
+de l’ouvrir dans Google Calendar ou toute autre application de calendrier.
+
+Depuis Android 7+, une application n’a plus le droit de partager directement
+un fichier interne avec une autre application via un chemin de fichier brut
+(file://...). Cela provoquerait un crash :
+FileUriExposedException.
+
+Le FileProvider agit comme un intermédiaire sécurisé :
+
+    App → FileProvider → Google Calendar
+
+(URI = Uniform Ressource Identifier, permert d'identifier univoquement une ressource)
+(Sandbox android = syst. de sécurité qui isole chaque application dans son environnement d'exécution)
+Il génère une URI temporaire sécurisée (content://) autorisée uniquement pour
+la lecture par l’application cible. Cela respecte le sandbox Android et empêche
+l’accès aux fichiers privés de l’application.
+
+Sans ce provider :
+- le partage du fichier .ics échouerait
+- Google Calendar ne pourrait pas importer le planning
+
+Ce provider est donc indispensable pour l’export calendrier.
+================================================================================
+-->
+
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
@@ -50,5 +96,17 @@
             </intent-filter>
         </receiver>
 
+        <!-- Provider transforme l'app en serveur sécurisé de fichiers temporaire
+        Sert à autoriser légalement le partage du fichier .ics
+        -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
     </application>
 </manifest>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+C'est ce fichier qui dit quels dossiers sont autorisés à être partagés
+-->
+
+<!--
+Déclaration XML
+<? et ?> signifient une instruction pour android lorsqu'il va lire le fichier (processing instruction)
+<,> servent à encadrer quelque chose de structuré de manière générale en android
+-->
+
+<!-- Conteneur obligatoire décrivant la whitelist des dossiers partageables -->
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Autoriser le partage des fichiers situés dans context.cacheDir -->
+    <cache-path
+        name="cache"
+        path="." /> <!-- Signifie que toute la racine du cache est partageable -->
+</paths>
