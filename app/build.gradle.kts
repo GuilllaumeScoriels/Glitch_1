@@ -136,6 +136,10 @@ dependencies {
     implementation ("io.coil-kt:coil-compose:2.6.0")
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
 
+    // room fournit stockage persistant pour les notifications
+    implementation("androidx.romm:room-runtime:2.6.1")
+    kapt("androidx.room:romm-compiler:2.6.1")
+    implementation("androidx.room:room-ktx:2.6.1")
     // Desugaring (garde une seule ligne)
     coreLibraryDesugaring(libs.desugar.jdk.libs)
 }
@@ -143,3 +147,13 @@ dependencies {
 kapt {
     correctErrorTypes = true
 }
+
+// Envoi options au générateur Room
+kapt {
+    arguments {
+        arg("room.schemaLocation", "${projectDir}/schemas") // Exporte le schéma SQL dans le dossier JSON indiqué
+        arg("room.incremental", "true") // Indique au compilateur de ne recompiler que les changements lors de la modif d'un fichier.
+        arg("room.expandProjection", "true") // Room transforme ainsi la requête reçue en version explicite => + précis.
+    }
+}
+
