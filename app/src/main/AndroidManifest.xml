@@ -45,7 +45,8 @@ Ce provider est donc indispensable pour l’export calendrier.
 ================================================================================
 -->
 
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest package="com.example.a18"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />

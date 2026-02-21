@@ -50,7 +50,7 @@ class EventAlarmReceiver : BroadcastReceiver() { /* Hérite d'une classe du syst
         val startMs  = intent.getLongExtra(EXTRA_START_MS, System.currentTimeMillis())
         val startLdt = LocalDateTime.ofInstant(Instant.ofEpochMilli(startMs), ZoneId.systemDefault()) // Conversion heure humaine
 
-        NotificationHelper.notifySlotStart(context, itemId, title, startLdt) // Envoi de la notification
+        NotificationHelper.notifySlotStart(context, itemId, title, calendarTitle, startLdt) // Envoi de la notification
 
         val pending = goAsync() // Demande à android du temps supp après la fin officielle du broadcast
         CoroutineScope(Dispatchers.IO).launch { // Dispatchers.IO ~ threads dédiés aux opérations lentes (hors du CPU)
@@ -73,6 +73,7 @@ class EventAlarmReceiver : BroadcastReceiver() { /* Hérite d'une classe du syst
         const val EXTRA_ID = "item_id"
         const val EXTRA_TITLE = "item_title"
         const val EXTRA_START_MS = "item_start_ms"
+        const val EXTRA_CALENDAR_TITLE =
         const val ACTION = "notifications.EVENT_ALARM"
     }
 }

@@ -50,8 +50,17 @@ abstract class AppNotificationsDb : RoomDatabase() {
 
         // context nécessaire pour accéder au sustème de fichiers (stocket la Db).
         fun get(context: Context): AppNotificationsDb {
+            /* Retournes instance si non null.
+            Sinon, on entre dans bloc synchronized (pour éviter que plusieurs threads modifient une donnée en même temps).             */
             return instance ?: synchronized(this) {
-                instance ?: Room.
+                /* Re-check instance car un autre thread a pu le créer pendant l'attente du lock.
+                On construit s'il est toujours null. Si entretemps instance est non null, on reprend sa
+                valeur et aucune nouvelle n'est créée.*/
+                instance ?: Room.databaseBuilder( // "Double-checked locking"
+                    context.applicationContext,
+                    AppNotificationsDb::class.java,
+                    "app_notifications.db" // nom du fichier Db dans stockage interne de l'app.
+                ).build().also { instance = it } // Objet enregistré dans instance
             }
         }
     }

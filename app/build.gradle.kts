@@ -137,8 +137,8 @@ dependencies {
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
 
     // room fournit stockage persistant pour les notifications
-    implementation("androidx.romm:room-runtime:2.6.1")
-    kapt("androidx.room:romm-compiler:2.6.1")
+    implementation("androidx.room:room-runtime:2.6.1")
+    kapt("androidx.room:room-compiler:2.6.1")
     implementation("androidx.room:room-ktx:2.6.1")
     // Desugaring (garde une seule ligne)
     coreLibraryDesugaring(libs.desugar.jdk.libs)

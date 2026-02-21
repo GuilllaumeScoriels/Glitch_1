@@ -1,5 +1,5 @@
 package Notifications
-/*
+/**
 
 * ================================================================
 * NotificationHelper
@@ -36,8 +36,9 @@ package Notifications
 
 */
 
+import Calendars.Calendrier
 import android.Manifest
-import android.R
+import com.example.a18.R
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -49,9 +50,11 @@ import androidx.annotation.RequiresPermission
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.example.lecturemotparmotapp.MainActivity
+import kotlinx.coroutines.launch
 import your.pkg.ui.navigation.Routes
 import java.time.LocalDateTime
 import java.time.ZoneId
+import androidx.core.graphics.drawable.toBitmap
 
 object NotificationHelper { // Unique gestionnaire de notifications pour l'app
     const val CHANNEL_ID = "calendar_slots" // Identifiant canal android; utilisateur choisit l'activation de ce canal
@@ -78,6 +81,7 @@ object NotificationHelper { // Unique gestionnaire de notifications pour l'app
         context: Context,
         itemId: String,
         slotTitle: String,
+        calendarTitle: String,
         start: LocalDateTime
     ) {
         ensureChannel(context)
@@ -97,10 +101,23 @@ object NotificationHelper { // Unique gestionnaire de notifications pour l'app
         // Afficher l'heure dans la notif. et trier correctement
         val whenMillis = start.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli()
 
+        /* Créer la largeIcon utilisée ci-dessous:
+        * context = point d'accès à l'environnement android
+          packageManager = service système qui connait toutes les apps installées et leurs métadonnées.
+        * context.packageName = nom du package de l'app.
+        * getApplicationicon récupère l'icône officielle de l'appli, renvoie un Drawable.
+        * toBitmap permet de transformer le drawable en format accepté par setLargeIcon().
+         */
+        val largeIcon = context.packageManager
+            .getApplicationIcon(context.packageName)
+            .toBitmap()
+
         // Assemblage de la notif.
         val notif = NotificationCompat.Builder(context, CHANNEL_ID)
-            .setSmallIcon(R.drawable.ic_popup_reminder)
+            .setSmallIcon(R.drawable.ic_notification_small) // monochrome
+            .setLargeIcon(largeIcon) // couleur
             .setContentTitle("C’est l’heure de s’atteler à la tâche suivante")
+            .setSubText(calendarTitle.ifBlank { "Calendrier principal"})
             .setContentText(slotTitle.ifBlank { "Créneau" })
             .setContentIntent(openPi)
             .setWhen(whenMillis)
@@ -112,5 +129,22 @@ object NotificationHelper { // Unique gestionnaire de notifications pour l'app
 
         // Envoi au système android
         NotificationManagerCompat.from(context).notify(itemId.hashCode(), notif)
+
+        // Ecriture DB:
+        val entity = AppNotificationEntity(
+            key = "SLOT_START|$itemId|$whenMillis", // identifiant unique de la notification dans la base.
+            type = "SLOT_START", // pour filtrer les notifications de créneau/les autres
+            title = calendarTitle.ifBlank {"Calendrier"}, // Stocker les informations de la notif pour les remontrer à l'utilisateur.
+            texte = slotTitle.ifBlank {"Créneau"}, // ifBlank = fonction kotlin, sexécute si vide ou seulement espaces.
+            timestamp = whenMillis
+        )
+        /* Android interdit l'accès disque sur le thread UI => lancer Room sur une coroutine.
+        UI thread: afficher
+        IO thread: écrire en base.
+         */
+
+        kotlinx.coroutines.CoroutineScope(kotlinx.coroutines.Dispatchers.IO).launch { // Exécuter l'instruction en arrière-plan sans bloquer l'app.
+            AppNotificationsRepository.get(context).upsert(entity)
+        }
     }
 }
